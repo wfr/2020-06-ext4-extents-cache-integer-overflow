@@ -1,0 +1,71 @@
+[   19.932017] ------------[ cut here ]------------
+[   19.932018] kernel BUG at fs/ext4/extents_status.c:884!
+[   19.932078] invalid opcode: 0000 [#1] SMP PTI
+[   19.932097] CPU: 0 PID: 433 Comm: mount Not tainted 5.8.0-rc2-ext4-debug-00001-g625d3449788f-dirty #10
+[   19.932131] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.13.0-1 04/01/2014
+[   19.932162] RIP: 0010:ext4_es_cache_extent+0xfa/0x110
+[   19.932183] Code: 49 8b 45 00 49 8b 7d 08 49 83 c5 18 48 89 e2 48 89 ee e8 b9 02 a4 00 49 8b 45 00 48 85 c0 75 e4 e9 58 ff ff ff e8 46 77 68 00 <0f> 0b 48 c7 c7 30 20 71 82 e8 2e 0c 18 00 0f 1f 84 00 00 00 00 00
+[   19.932250] RSP: 0018:ffffc900007478a0 EFLAGS: 00010213
+[   19.932271] RAX: 07ffffffffffffff RBX: 0000000000007ffd RCX: 0000ffffffffffff
+[   19.932298] RDX: 0000000000007fff RSI: 00000000ffffffff RDI: ffff888078dc40e8
+[   19.932325] RBP: ffff888078dc40e8 R08: 1000ffffffffffff R09: 0000000000000000
+[   19.932351] R10: 0000000000000000 R11: ffffffff82678ea0 R12: 00000000ffffffff
+[   19.932374] R13: ffff888076c08000 R14: 00000000ffffffff R15: ffff888078dce958
+[   19.932402] FS:  00007f349216b880(0000) GS:ffff88807d600000(0000) knlGS:0000000000000000
+[   19.932432] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   19.932454] CR2: 0000564866452988 CR3: 00000000770ac000 CR4: 00000000000006f0
+[   19.932483] Call Trace:
+[   19.932505]  ext4_cache_extents+0x5a/0xd0
+[   19.932524]  __read_extent_tree_block+0x126/0x190
+[   19.932548]  ? _cond_resched+0x15/0x30
+[   19.932563]  ? __kmalloc+0x17d/0x260
+[   19.932578]  ? ext4_find_extent+0x4a2/0x6e0
+[   19.932595]  ext4_find_extent+0x226/0x6e0
+[   19.932612]  ext4_ext_map_blocks+0x6f/0x1330
+[   19.932630]  ? __cgroup_account_cputime+0x24/0x30
+[   19.932650]  ? update_curr+0x73/0x1e0
+[   19.932666]  ? dequeue_entity+0xa8/0x450
+[   19.932683]  ext4_map_blocks+0x3ce/0x670
+[   19.932700]  ? __schedule+0x2da/0x7c0
+[   19.932716]  ext4_iomap_begin+0x204/0x2a0
+[   19.932733]  ? schedule+0x4a/0xb0
+[   19.933583]  iomap_apply+0x98/0x340
+[   19.934427]  ? iomap_fiemap_actor+0xa0/0xa0
+[   19.935315]  ? iomap_bmap+0x99/0xe0
+[   19.936133]  ? var_wake_function+0x20/0x20
+[   19.936928]  iomap_bmap+0x99/0xe0
+[   19.937709]  ? iomap_fiemap_actor+0xa0/0xa0
+[   19.938502]  bmap+0x22/0x30
+[   19.939301]  jbd2_journal_init_inode+0x33/0x100
+[   19.940057]  ext4_fill_super+0x3377/0x3d30
+[   19.940802]  ? mount_bdev+0x176/0x1a0
+[   19.941538]  mount_bdev+0x176/0x1a0
+[   19.942267]  ? ext4_calculate_overhead+0x500/0x500
+[   19.943224]  legacy_get_tree+0x27/0x50
+[   19.943970]  vfs_get_tree+0x25/0xd0
+[   19.944687]  do_mount+0x6df/0x990
+[   19.945396]  ? memdup_user+0x4e/0x90
+[   19.946089]  __x64_sys_mount+0x8e/0xd0
+[   19.946764]  do_syscall_64+0x3e/0xb0
+[   19.947487]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[   19.948153] RIP: 0033:0x7f3492907e4a
+[   19.948794] Code: Bad RIP value.
+[   19.949420] RSP: 002b:00007fff1a909a98 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+[   19.950052] RAX: ffffffffffffffda RBX: 00007f3492a2c224 RCX: 00007f3492907e4a
+[   19.950677] RDX: 000056486644e130 RSI: 000056486644d9d0 RDI: 0000564866446c70
+[   19.951321] RBP: 0000564866446a40 R08: 0000000000000000 R09: 0000564866445010
+[   19.951921] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+[   19.952521] R13: 0000564866446c70 R14: 000056486644e130 R15: 0000564866446a40
+[   19.953118] Modules linked in:
+[   19.953747] ---[ end trace c329f6476cc6032f ]---
+[   19.954356] RIP: 0010:ext4_es_cache_extent+0xfa/0x110
+[   19.954935] Code: 49 8b 45 00 49 8b 7d 08 49 83 c5 18 48 89 e2 48 89 ee e8 b9 02 a4 00 49 8b 45 00 48 85 c0 75 e4 e9 58 ff ff ff e8 46 77 68 00 <0f> 0b 48 c7 c7 30 20 71 82 e8 2e 0c 18 00 0f 1f 84 00 00 00 00 00
+[   19.956295] RSP: 0018:ffffc900007478a0 EFLAGS: 00010213
+[   19.956907] RAX: 07ffffffffffffff RBX: 0000000000007ffd RCX: 0000ffffffffffff
+[   19.957532] RDX: 0000000000007fff RSI: 00000000ffffffff RDI: ffff888078dc40e8
+[   19.958193] RBP: ffff888078dc40e8 R08: 1000ffffffffffff R09: 0000000000000000
+[   19.958821] R10: 0000000000000000 R11: ffffffff82678ea0 R12: 00000000ffffffff
+[   19.959533] R13: ffff888076c08000 R14: 00000000ffffffff R15: ffff888078dce958
+[   19.960193] FS:  00007f349216b880(0000) GS:ffff88807d600000(0000) knlGS:0000000000000000
+[   19.960862] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   19.961531] CR2: 0000564866452988 CR3: 00000000770ac000 CR4: 00000000000006f0
