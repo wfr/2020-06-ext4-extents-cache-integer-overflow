@@ -1,3 +1,12 @@
+From 90fa04e61f7dc9a18e8e822c33a506272d4e51dc Mon Sep 17 00:00:00 2001
+From: Wolfgang Frisch <wolfgang.frisch@suse.com>
+Date: Mon, 29 Jun 2020 16:28:51 +0200
+Subject: [PATCH] catch integer overflow in ext4_cache_extents
+
+---
+ fs/ext4/extents.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
 diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
 index 221f240eae60..052d50ec02a4 100644
 --- a/fs/ext4/extents.c
@@ -12,3 +21,6 @@ index 221f240eae60..052d50ec02a4 100644
  		if (prev && (prev != lblk))
  			ext4_es_cache_extent(inode, prev, lblk - prev, ~0,
  					     EXTENT_STATUS_HOLE);
+-- 
+2.27.0
+
